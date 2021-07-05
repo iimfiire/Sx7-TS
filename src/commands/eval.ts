@@ -5,7 +5,7 @@ export default new Command({
 	category: 'dev',
 	description: 'evalutes a segment of code',
 	info: '',
-	cooldown: 10000,
+	cooldown: 0,
 	minArgs: 1,
 	maxArgs: Infinity,
 	syntax: '<code>',
