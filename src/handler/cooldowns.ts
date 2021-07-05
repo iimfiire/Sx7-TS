@@ -1,6 +1,5 @@
 import { Collection, User } from 'discord.js';
 import fireClient from './fireClient';
-import humanizeDuration from 'humanize-duration';
 import cooldowns from './database/models/cooldowns';
 
 interface cooldowns {

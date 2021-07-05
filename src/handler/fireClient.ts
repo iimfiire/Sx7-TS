@@ -1,4 +1,4 @@
-import { Client, Collection, MessageEmbed, Message, Channel } from 'discord.js';
+import { Client, Collection, MessageEmbed, Message, TextChannel } from 'discord.js';
 import Cache from './cache';
 import Command from './command';
 import Cooldowns from './cooldowns';
@@ -13,14 +13,10 @@ interface error {
 	data: string;
 }
 
-interface getChannel {
-	client: fireClient;
-	channel: string;
-}
-
 class fireClient extends Client {
 	commands: Collection<string, Command>;
 	aliases: Collection<string, string>;
+	initialized: boolean;
 	defaultPrefix: string[];
 	developers: string[];
 	testServers: string[];
@@ -28,7 +24,7 @@ class fireClient extends Client {
 	databaseCache: Cache;
 	success: ({ message, data }: success) => MessageEmbed;
 	error: ({ message, data }: error) => MessageEmbed;
-	getChannel: (channel) => Channel;
+	getChannel: (channel) => TextChannel;
 }
 
 export default fireClient;

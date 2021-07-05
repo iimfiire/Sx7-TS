@@ -1,4 +1,4 @@
-import { Collection, MessageEmbed, Message, Channel } from 'discord.js';
+import { Collection, MessageEmbed, Message, TextChannel } from 'discord.js';
 import fireClient2 from './fireClient';
 import { Commands, Events } from './register';
 import Command from './command';
@@ -12,12 +12,6 @@ import featureHandler from './featureHandler';
 import Cooldowns from './cooldowns';
 import Cache from './cache';
 import colors from 'colors';
-
-interface cldwns {
-	uID: string;
-	cmdName: string;
-	cooldown: Date;
-}
 
 interface clientOptions {
 	cmdPath: string;
@@ -38,6 +32,7 @@ export class fireClient {
 	_developers: string[];
 	_defaultPrefix: string[];
 	_mongoURI: string;
+	_initialized: boolean
 
 	constructor(client, options: clientOptions) {
 		this._client = client;
@@ -48,7 +43,7 @@ export class fireClient {
 		this._developers = options.testServers;
 		this._defaultPrefix = options.defaultPrefix;
 		this._mongoURI = options.mongoURI;
-
+		this._initialized = false;
 		this._client.commands = new Collection<string, Command>();
 		this._client.aliases = new Collection<string, string>();
 		this._client.defaultPrefix = options.defaultPrefix;
@@ -56,7 +51,7 @@ export class fireClient {
 
 		this._client.getChannel = (
 			channel: string
-		): Channel => {
+		): TextChannel => {
 			return client.channels.fetch(channel);
 		};
 
@@ -97,9 +92,6 @@ export class fireClient {
 
 	async _init() {
 		await database(this._mongoURI);
-		await this._commands();
-		await this._events();
-		new featureHandler(this._client, this._featurePath);
 		this._client.cooldowns = new Cooldowns(
 			await cooldowns.find(),
 			this._client
@@ -129,6 +121,10 @@ export class fireClient {
 			},
 			updateSpeed: 30000,
 		});
+		await this._commands();
+		await this._events();
+		new featureHandler(this._client, this._featurePath);
+		this._initialized = true;
 	}
 
 	_commands() {

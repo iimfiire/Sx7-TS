@@ -3,6 +3,7 @@ import Event from '../handler/events';
 import { checkPerms } from '../handler/utils';
 
 export default new Event('messageCreate', (client, message) => {
+	if(!client.initialized) return;
 	const prefixes = message.guild
 		? client.databaseCache.getDoc('prefixes', message.guild.id).prefixes
 		: client.defaultPrefix;

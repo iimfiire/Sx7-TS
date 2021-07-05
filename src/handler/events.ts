@@ -1,7 +1,7 @@
 import fireClient from './fireClient';
 import { ClientEvents } from 'discord.js';
 
-export default class Event<K extends keyof ClientEvents = any> {
+export default class Event<K extends keyof ClientEvents> {
 	name: K;
 	execute: (client: fireClient, ...args: ClientEvents[K]) => void;
 
