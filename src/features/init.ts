@@ -9,7 +9,7 @@ export default new Feature((client) => {
 	.setDescription(':green_circle: Online and registering commands!')
 	.setTimestamp();
 
-	const hubChannel = client.channels.fetch('850152902395166771').then(channel => {
+	client.channels.fetch('850152902395166771').then(channel => {
 		if(channel && channel.isText())
 			channel.send({embeds: [onlineEmbed]})
 	});
