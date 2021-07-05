@@ -1,4 +1,4 @@
-import { Collection, MessageEmbed, Message } from 'discord.js';
+import { Collection, MessageEmbed, Message, Channel } from 'discord.js';
 import fireClient2 from './fireClient';
 import { Commands, Events } from './register';
 import Command from './command';
@@ -54,14 +54,10 @@ export class fireClient {
 		this._client.defaultPrefix = options.defaultPrefix;
 		this._client.developers = options.developers;
 
-		this._client.getChannel = ({
-			client,
-			channel,
-		}: {
-			client: fireClient2;
-			channel: any | string;
-		}) => {
-			return client.channels.cache.get(channel);
+		this._client.getChannel = (
+			channel: string
+		): Channel => {
+			return client.channels.fetch(channel);
 		};
 
 		this._client.success = ({

@@ -28,7 +28,7 @@ class fireClient extends Client {
 	databaseCache: Cache;
 	success: ({ message, data }: success) => MessageEmbed;
 	error: ({ message, data }: error) => MessageEmbed;
-	getChannel: ({ client, channel }) => any;
+	getChannel: (channel) => Channel;
 }
 
 export default fireClient;

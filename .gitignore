@@ -7,7 +7,5 @@ dist
 !.yarn/versions
 .env
 node_modules
-.prettierrc
 .yarnrc.yml
-.prettierignore
 yarn-error.log

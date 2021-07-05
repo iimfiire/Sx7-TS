@@ -97,7 +97,7 @@ export default new Event('messageCreate', (client, message) => {
 				],
 			});
 
-		if (command.userPerms && checkPerms(message.member, command.userPerms))
+		if (command.userPerms && checkPerms(message.member, command.userPerms).length > 0)
 			return message.channel.send({
 				embeds: [
 					client.error({
