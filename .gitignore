@@ -1,0 +1,13 @@
+dist
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.env
+node_modules
+.prettierrc
+.yarnrc.yml
+.prettierignore
+yarn-error.log
