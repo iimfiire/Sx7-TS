@@ -1,5 +1,5 @@
 import { fireClient } from './handler/index';
-import { Client, Intents, Message, MessageEmbed } from 'discord.js';
+import { Client, Intents, MessageEmbed } from 'discord.js';
 import { config } from 'dotenv';
 import colors from 'colors';
 config();
