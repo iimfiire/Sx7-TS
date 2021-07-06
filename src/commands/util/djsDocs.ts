@@ -1,4 +1,4 @@
-import Command from '../handler/command';
+import Command from '../../handler/command';
 import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
 
@@ -19,7 +19,7 @@ export default new Command({
     nsfw: false,
     syntax: `<query>`,
     test: false,
-    execute: async ({message, args, client}) => {
+    execute: ({message, args, client}) => {
         const uri = `https://djsdocs.sorta.moe/v2/embed?src=stable&q=${encodeURIComponent(args.join(" "))}`;
         axios.get(uri).then(res => {
             if(res.data && res.data.color)
