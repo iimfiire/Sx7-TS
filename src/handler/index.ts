@@ -88,7 +88,10 @@ export class fireClient {
 			return embed;
 		};
 
-		this._init();
+		this._init().catch(err => {
+			console.log(`[FATAL ERROR]`.red + ` Fatal error initializing the client.`)
+			process.abort();
+		});
 	}
 
 	async _init() {
