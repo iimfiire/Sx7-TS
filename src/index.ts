@@ -18,7 +18,7 @@ if(!process.argv0 || process.argv[2] !== '-safe') {
 			defaultPrefix: ['-'],
 			developers: ['341994639395520526'],
 			mongoURI: process.env.mongoURI,
-			testServers: ['799284445785751614'],
+			testServers: ['799284445785751614', '789840820563476482'],
 		});
 		console.log(`[INIT]`.green + ` Logged in as ${client.user.username}`);
 		if (!client.application?.owner) client.application.fetch();
@@ -27,9 +27,10 @@ if(!process.argv0 || process.argv[2] !== '-safe') {
 	process.on('warning', (warning) => {
 		client.channels.fetch('850152902395166771').then(channel => {
 			if(channel.isText()) {
-				channel.send({embeds: [new MessageEmbed().setTitle('Process warning detecting.').setDescription(`\`\`\`${warning}\`\`\` Received at: \n ${new Date()}`).setColor('#FF0000')]})
+				channel.send({embeds: [new MessageEmbed().setTitle('Process warning detecting.').setDescription(`Warning: \`\`\`${warning}\`\`\` \nTraceback: \n\`\`\`${warning.stack}\`\`\` \nReceived at: \n ${new Date()}`).setColor('#FF0000')]})
 			}
 		})
+
 	})
 } 
 
