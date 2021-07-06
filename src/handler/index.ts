@@ -44,6 +44,7 @@ export class fireClient {
 		this._defaultPrefix = options.defaultPrefix;
 		this._mongoURI = options.mongoURI;
 		this._client.initialized = false;
+		this._client.testServers = options.testServers;
 		this._client.commands = new Collection<string, Command>();
 		this._client.aliases = new Collection<string, string>();
 		this._client.defaultPrefix = options.defaultPrefix;
@@ -124,7 +125,11 @@ export class fireClient {
 		await this._commands();
 		await this._events();
 		new featureHandler(this._client, this._featurePath);
-		this._client.initialized = true;
+
+		setTimeout(() => {
+			this._client.initialized = true;
+		}, 10000)
+
 	}
 
 	_commands() {

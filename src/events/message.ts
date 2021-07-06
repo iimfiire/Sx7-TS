@@ -133,7 +133,7 @@ export default new Event('messageCreate', (client, message) => {
 				command.name,
 				new Date(Date.now() + command.cooldown)
 			);
-
-		return command.execute({ message, args, client });
+				
+		return command.execute({ message, args, client, prefix: p });
 	}
 });
