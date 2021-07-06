@@ -92,7 +92,7 @@ export class fireClient {
 	}
 
 	async _init() {
-		await database(this._mongoURI);
+		database(this._mongoURI);
 		this._client.cooldowns = new Cooldowns(
 			await cooldowns.find(),
 			this._client
@@ -122,8 +122,8 @@ export class fireClient {
 			},
 			updateSpeed: 30000,
 		});
-		await this._commands();
-		await this._events();
+		this._commands();
+		this._events();
 		new featureHandler(this._client, this._featurePath);
 
 		setTimeout(() => {
