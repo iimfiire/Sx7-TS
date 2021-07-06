@@ -1,5 +1,5 @@
-import { Collection, MessageEmbed } from 'discord.js';
-import Command from '../handler/command';
+import { MessageEmbed } from 'discord.js';
+import Command from '../../handler/command';
 
 export default new Command({
     name: 'help',
