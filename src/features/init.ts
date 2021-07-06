@@ -1,8 +1,7 @@
 import { MessageEmbed } from 'discord.js';
-import prefixes from '../handler/database/models/prefixes';
 import Feature from '../handler/features';
 
-export default new Feature(async (client) => {
+export default new Feature((client) => {
 	client.user.setActivity('ts go brr');
 
 	const onlineEmbed = new MessageEmbed()
