@@ -1,5 +1,5 @@
 import { fireClient } from './handler/index';
-import { Client, Intents, MessageEmbed } from 'discord.js';
+import { Client, Intents, Message, MessageEmbed } from 'discord.js';
 import { config } from 'dotenv';
 import colors from 'colors';
 config();
@@ -23,6 +23,14 @@ if(!process.argv0 || process.argv[2] !== '-safe') {
 		console.log(`[INIT]`.green + ` Logged in as ${client.user.username}`);
 		if (!client.application?.owner) client.application.fetch();
 	});
+
+	process.on('warning', (warning) => {
+		client.channels.fetch('850152902395166771').then(channel => {
+			if(channel.isText()) {
+				channel.send({embeds: [new MessageEmbed().setTitle('Process warning detecting.').setDescription(`\`\`\`${warning}\`\`\` Received at: \n ${new Date()}`).setColor('#FF0000')]})
+			}
+		})
+	})
 } 
 
 if(process.argv[2] == '-safe') {
