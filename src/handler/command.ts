@@ -5,6 +5,7 @@ interface execute {
 	message: Message;
 	args: string[];
 	client: fireClient;
+	prefix: string;
 }
 
 interface cmdOptions {
@@ -24,7 +25,7 @@ interface cmdOptions {
 	noDisable: boolean;
 	userPerms: PermissionResolvable[];
 	botPerms: PermissionResolvable[];
-	execute: ({ message, args, client }: execute) => any;
+	execute: ({ message, args, client, prefix }: execute) => any;
 }
 
 export default class Command {
@@ -44,7 +45,7 @@ export default class Command {
 	noDisable: boolean;
 	userPerms: PermissionResolvable[];
 	botPerms: PermissionResolvable[];
-	execute: ({ message, args, client }: execute) => any | Promise<any>;
+	execute: ({ message, args, client, prefix }: execute) => any | Promise<any>;
 
 	constructor({
 		name,
