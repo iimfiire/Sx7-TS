@@ -66,9 +66,7 @@ export class fireClient {
 			const embed = new MessageEmbed()
 				.setColor('#2FDD2C')
 				.setDescription(`${data}`)
-				.setTitle('Success!')
 				.setAuthor('', message.author.displayAvatarURL())
-				.setTimestamp();
 			return embed;
 		};
 
@@ -82,15 +80,14 @@ export class fireClient {
 			const embed = new MessageEmbed()
 				.setColor('#FF0000')
 				.setDescription(`${data}`)
-				.setTitle('Error!')
 				.setAuthor('', message.author.displayAvatarURL())
-				.setTimestamp();
 			return embed;
 		};
 
 		this._init().catch(err => {
 			console.log(`[FATAL ERROR]`.red + ` Fatal error initializing the client.`)
-			process.abort();
+			process.emitWarning(`Fatal error initializing client.\n\n Error: ${err}`)
+			process.exit(0);
 		});
 	}
 
