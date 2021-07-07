@@ -1,6 +1,6 @@
 import humanizeDuration from 'humanize-duration';
 import Event from '../handler/events';
-import { checkPerms } from '../handler/utils';
+import { checkPerms, properCase } from '../handler/utils';
 
 export default new Event('messageCreate', (client, message) => {
 	if(!client.initialized) return;
@@ -63,7 +63,7 @@ export default new Event('messageCreate', (client, message) => {
 				embeds: [
 					client.error({
 						message,
-						data: `${commandName} requires ${
+						data: `${properCase(commandName)} requires ${
 							command.minArgs
 						} arguments. \nThe proper syntax for this command is ${`${p}${commandName} ${command.syntax}.`}`,
 					}),
@@ -75,7 +75,7 @@ export default new Event('messageCreate', (client, message) => {
 				embeds: [
 					client.error({
 						message,
-						data: `${commandName} only takes in ${
+						data: `${properCase(commandName)} only takes in ${
 							command.maxArgs
 						} arguments. \nThe proper syntax for this command is ${`${p}${commandName} ${command.syntax}`}`,
 					}),
@@ -90,10 +90,10 @@ export default new Event('messageCreate', (client, message) => {
 				embeds: [
 					client.error({
 						message,
-						data: `I am missing the following permissions to run this command: \`${checkPerms(
+						data: `I am missing the following permissions to run this command: \`${properCase(checkPerms(
 							message.guild.me,
 							command.botPerms
-						).missing.join(', ')}\``,
+						).missing.join(', '))}\``,
 					}),
 				],
 			});
@@ -103,10 +103,10 @@ export default new Event('messageCreate', (client, message) => {
 				embeds: [
 					client.error({
 						message,
-						data: `You are missing the following permissions to run this command: \`${checkPerms(
+						data: `You are missing the following permissions to run this command: \`${properCase(checkPerms(
 							message.member,
 							command.userPerms
-						).missing.join(', ')}\``,
+						).missing.join(', '))}\``,
 					}),
 				],
 			});
