@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../handler/command';
+import { properCase } from '../../handler/utils';
 
 export default new Command({
     name: 'help',
@@ -50,7 +51,7 @@ export default new Command({
             }
             else {
                 const command = client.commands.get(args[0]) || client.commands.get(client.aliases.get(args[0]))
-                helpEmbed.setTitle(`${command.name} Help Menu`)
+                helpEmbed.setTitle(`${properCase(command.name)} Help Menu`)
                 helpEmbed.setDescription(`${command.description}`)
                 helpEmbed.addFields([
                     {name: 'Usage', value: `${prefix}${command.name} ${command.syntax}`, inline: true},
