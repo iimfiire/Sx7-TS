@@ -65,7 +65,7 @@ export const Events = (eventsDir: string, client: fireClient): EventsReturn => {
 				client
 			).totalEvents;
 		else {
-			const event: Event = require(join(
+			const event: Event<any> = require(join(
 				require.main.path,
 				eventsDir,
 				file
