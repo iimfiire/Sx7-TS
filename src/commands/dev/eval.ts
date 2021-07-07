@@ -1,4 +1,4 @@
-import Command from '../handler/command';
+import Command from '../../handler/command';
 
 export default new Command({
 	name: 'eval',
