@@ -8,7 +8,7 @@ export default new Command({
     category: 'utility',
     description: 'Offers information about all commands available to the user running the command',
     info: '',
-    cooldown: 10000,
+    // cooldown: 10000,
     minArgs: 0,
     maxArgs: Infinity,
     syntax: '[command]',
