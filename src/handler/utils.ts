@@ -35,3 +35,8 @@ export const checkRoles = (
 
 	return true;
 };
+
+
+export const properCase = (string: string) => {
+  return string.toLowerCase().replace(/(\b\w)/gi, (w) => w.toUpperCase());
+}
