@@ -19,7 +19,7 @@ export default new Command({
 	noDisable: true,
 	userPerms: ['MANAGE_GUILD'],
 	botPerms: ['SEND_MESSAGES', 'EMBED_LINKS'],
-	execute: ({ message, args, client }) => {
+	execute: ({ message, args, client, prefix }) => {
 		const addOptions = ['+', 'add', 'create', 'new'];
 		const removeOptions = ['-', 'remove', 'delete', 'del', 'rem'];
 		const option = args[1]
@@ -40,6 +40,7 @@ export default new Command({
 								data: `**${args[1]}** is already a prefix in **${message.guild.name}**`,
 							}),
 						],
+						allowedMentions: { repliedUser: false },
 					});
 				if (prefixDoc.prefixes.length + 1 > 10)
 					return message.reply({
@@ -49,26 +50,30 @@ export default new Command({
 								data: `Each guild can have a maximum of **10** prefixes. To add another prefix, you must first remove one.`,
 							}),
 						],
+						allowedMentions: { repliedUser: false },
 					});
 				prefixDoc.prefixes.push(args[1]);
 				client.databaseCache.updateDoc('prefixes', prefixDoc);
-                return message.reply({
+				return message.reply({
 					embeds: [
 						client.success({
 							message,
-							data: `**${args[1]}** added to the prefixes in **${message.guild.name}**`,
+							data: `**${args[1]}** added to the  prefixes in **${message.guild.name}**`,
 						}),
 					],
+					allowedMentions: { repliedUser: false },
 				});
 			} else {
-				if (prefixDoc.prefixes.length - 1 < 1) return message.reply({
-                    embeds: [
-                        client.error({
-                            message,
-                            data: `Each guild must have at least **1** prefix. Add another prefix before removing this one.`,
-                        }),
-                    ],
-                });
+				if (prefixDoc.prefixes.length - 1 < 1)
+					return message.reply({
+						embeds: [
+							client.error({
+								message,
+								data: `Each guild must have at least **1** prefix. Add another prefix before removing this one.`,
+							}),
+						],
+						allowedMentions: { repliedUser: false },
+					});
 				if (
 					prefixDoc.prefixes.filter((prefix) => prefix == args[1]).length == 0
 				)
@@ -79,6 +84,7 @@ export default new Command({
 								data: `That doesn't seem to be a prefix in **${message.guild.name}**. Make sure you typed it correctly.`,
 							}),
 						],
+						allowedMentions: { repliedUser: false },
 					});
 
 				prefixDoc.prefixes.splice(prefixDoc.prefixes.indexOf(args[1]), 1);
@@ -90,16 +96,21 @@ export default new Command({
 							data: `**${args[1]}** removed from prefixes in **${message.guild.name}**`,
 						}),
 					],
+					allowedMentions: { repliedUser: false },
 				});
 			}
 		} else {
 			return message.reply({
 				embeds: [
-					new MessageEmbed().setDescription(
-						`Prefix(es) in **${
-							message.guild.name
-						}**: \n\`${prefixDoc.prefixes.join('\n')}\``
-					),
+					new MessageEmbed()
+						.setDescription(
+							`Prefix(es) in **${
+								message.guild.name
+							}**: \n\`${prefixDoc.prefixes.join('\n')}\``
+						)
+						.setFooter(
+							`Run ${prefix}prefix [+/-] [prefix] to add or remove prefixes.`
+						),
 				],
 				allowedMentions: { repliedUser: false },
 			});

@@ -47,6 +47,7 @@ export default new Command({
 					embeds: [
 						client.success({ message, data: `Unlocked **${channel.name}**` }),
 					],
+					allowedMentions: { repliedUser: false },
 				});
 			} else {
 				return message.reply({

@@ -40,7 +40,7 @@ export default new Command({
 			});
 
 		if (!channel) {
-			message.reply({
+			return message.reply({
 				embeds: [
 					client.error({
 						message,
@@ -49,8 +49,6 @@ export default new Command({
 				],
 				allowedMentions: { repliedUser: false },
 			});
-			client.cooldowns.setCooldown(message.author, 'lock', new Date(0));
-			return;
 		} else {
 			if (channel.type == 'text' && channel.isText()) {
 				await channel.permissionOverwrites.create(
