@@ -52,6 +52,14 @@ export default new Command({
 					});
 				prefixDoc.prefixes.push(args[1]);
 				client.databaseCache.updateDoc('prefixes', prefixDoc);
+                return message.reply({
+					embeds: [
+						client.success({
+							message,
+							data: `**${args[1]}** added to the prefixes in **${message.guild.name}**`,
+						}),
+					],
+				});
 			} else {
 				if (prefixDoc.prefixes.length - 1 < 1) return message.reply({
                     embeds: [
