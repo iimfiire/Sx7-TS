@@ -64,7 +64,7 @@ export class fireClient {
 			data: string;
 		}): MessageEmbed => {
 			const embed = new MessageEmbed()
-				.setColor('#2FDD2C')
+				.setColor('#0d6ba5')
 				.setDescription(`${data}`)
 				.setAuthor('', message.author.displayAvatarURL())
 			return embed;
@@ -78,7 +78,7 @@ export class fireClient {
 			data: string;
 		}): MessageEmbed => {
 			const embed = new MessageEmbed()
-				.setColor('#0d6ba5')
+				.setColor('#FF0000')
 				.setDescription(`${data}`)
 				.setAuthor('', message.author.displayAvatarURL())
 			return embed;
