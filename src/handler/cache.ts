@@ -97,7 +97,7 @@ export default class Cache {
 		else this._cache.get(type).set(doc[this._options.models[type].getBy], doc);
 	}
 
-	updateDoc<T extends keyof models2>(type: T, update: Document<models2[T]>) {
+	updateDoc<T extends keyof models2>(type: T, update: models2[T]) {
 		this._cache.get(type).set(update[this._options.models[type].getBy], update);
 	}
 
