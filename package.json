@@ -71,6 +71,7 @@
     "discord.js": "^13.0.0-dev.7e30011.1625338909",
     "dotenv": "^10.0.0",
     "humanize-duration": "^3.27.0",
-    "mongoose": "^5.12.14"
+    "mongoose": "^5.12.14",
+    "ms": "^2.1.3"
   }
 }
