@@ -10,5 +10,5 @@
 </div>
 
 <div>
-    <a href="https://discord.gg/vVXPRavUDm" target="_blank">Discord</a>
+    <img src="https://img.shields.io/discord/595457764935991326.svg?logo=discord" alt="Discord Server">
 </div>
