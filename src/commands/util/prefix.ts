@@ -31,7 +31,7 @@ export default new Command({
 				? 'remove'
 				: undefined
 			: undefined;
-		let prefixDoc = client.databaseCache.getDoc('prefixes', message.guild.id);
+		const prefixDoc = client.databaseCache.getDoc('prefixes', message.guild.id);
 		if (option) {
 			if (option == 'add') {
 				if (prefixDoc.prefixes.includes(args[1]))
