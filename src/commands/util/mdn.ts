@@ -36,8 +36,9 @@ export default new Command({
 				return message.reply({
 					embeds: [
 						new MessageEmbed()
-							.setTitle(`[${data.title}](${data.url})` + `.`)
-							.setDescription(data.summary),
+							.setTitle(`${data.title}` + `.`)
+							.setDescription(data.summary)
+							.setURL(data.url),
 					],
 				});
 			})
