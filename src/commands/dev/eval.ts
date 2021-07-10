@@ -18,7 +18,7 @@ export default new Command({
 	userPerms: ['SEND_MESSAGES'],
 	botPerms: ['ADMINISTRATOR'],
 	fileLocation: join(__dirname, 'eval.js'),
-	execute: ({ message, args, client }) => {
+	execute: ({ message, args, client, util }) => {
 		try {
 			eval(args.join(' '));
 		} catch (err) {
@@ -33,4 +33,5 @@ export default new Command({
 		}
 	},
 });
+
 
