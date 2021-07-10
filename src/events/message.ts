@@ -3,7 +3,7 @@ import Event from '../handler/events';
 import { checkPerms, properCase } from '../handler/utils';
 
 export default new Event('messageCreate', (client, message) => {
-	if(!client.initialized) return;
+	if (!client.initialized) return;
 	const prefixes = message.guild
 		? client.databaseCache.getDoc('prefixes', message.guild.id).prefixes
 		: client.defaultPrefix;
@@ -11,15 +11,27 @@ export default new Event('messageCreate', (client, message) => {
 	for (const p of prefixes) {
 		if (!message.content.startsWith(p)) continue;
 
-		const args = message.content.trim().slice(p.length).split(/ +/g);
+		const args = [];
+		const regex = new RegExp('"[^"]+"|[\\S]+', 'g');
+		message.content
+			.trim()
+			.slice(p.length)
+			.match(regex)
+			.forEach((element) => {
+				if (!element) return;
+				return args.push(element.replace(/"/g, ''));
+			});
 		const commandName = args.shift();
 		const command =
 			client.commands.get(commandName) ||
 			client.commands.get(client.aliases.get(commandName));
 		if (!command) return;
-		
-		if(message.content.includes('--dev') && client.developers.includes(message.author.id)) {
-			return command.execute({message, args, client, prefix: p});
+
+		if (
+			message.content.includes('--dev') &&
+			client.developers.includes(message.author.id)
+		) {
+			return command.execute({ message, args, client, prefix: p });
 		}
 
 		if (command.guildOnly && !message.guild)
@@ -94,23 +106,24 @@ export default new Event('messageCreate', (client, message) => {
 				embeds: [
 					client.error({
 						message,
-						data: `I am missing the following permissions to run this command: \`${properCase(checkPerms(
-							message.guild.me,
-							command.botPerms
-						).missing.join(', '))}\``,
+						data: `I am missing the following permissions to run this command: \`${properCase(
+							checkPerms(message.guild.me, command.botPerms).missing.join(', ')
+						)}\``,
 					}),
 				],
 			});
 
-		if (command.userPerms && checkPerms(message.member, command.userPerms).length > 0)
+		if (
+			command.userPerms &&
+			checkPerms(message.member, command.userPerms).length > 0
+		)
 			return message.channel.send({
 				embeds: [
 					client.error({
 						message,
-						data: `You are missing the following permissions to run this command: \`${properCase(checkPerms(
-							message.member,
-							command.userPerms
-						).missing.join(', '))}\``,
+						data: `You are missing the following permissions to run this command: \`${properCase(
+							checkPerms(message.member, command.userPerms).missing.join(', ')
+						)}\``,
 					}),
 				],
 			});
@@ -137,7 +150,7 @@ export default new Event('messageCreate', (client, message) => {
 				command.name,
 				new Date(Date.now() + command.cooldown)
 			);
-				
+
 		return command.execute({ message, args, client, prefix: p });
 	}
 });
