@@ -1,6 +1,7 @@
 import humanizeDuration from 'humanize-duration';
 import Event from '../handler/events';
 import { checkPerms, properCase } from '../handler/utils';
+import colors from 'colors';
 
 export default new Event('messageCreate', (client, message) => {
 	if (!client.initialized) return;
