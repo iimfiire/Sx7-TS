@@ -22,7 +22,7 @@ export default new Event('guildCreate', (client, guild) => {
 	const objArr: Array<allowed> = [];
 
 	client.commands.map((command) => {
-		let obj = {
+		const obj = {
 			command: command.name,
 			allowed: [],
 		};
