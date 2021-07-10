@@ -1,6 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../handler/command';
 import { properCase } from '../../handler/utils';
+import { join } from 'path';
 
 export default new Command({
 	name: 'help',
@@ -20,6 +21,7 @@ export default new Command({
 	noDisable: false,
 	userPerms: ['SEND_MESSAGES'],
 	botPerms: ['EMBED_LINKS'],
+	fileLocation: join(__dirname, 'help.js'),
 	execute: ({ message, args, client, prefix }) => {
 		const helpEmbed = new MessageEmbed().setTimestamp();
 

@@ -1,5 +1,6 @@
 import Command from '../../handler/command';
 import ms from 'ms';
+import { join } from 'path';
 
 export default new Command({
 	name: 'slowmode',
@@ -18,6 +19,7 @@ export default new Command({
 	noDisable: false,
 	userPerms: ['MANAGE_MESSAGES'],
 	botPerms: ['MANAGE_CHANNELS', 'SEND_MESSAGES', 'EMBED_LINKS'],
+	fileLocation:  join(__dirname, 'slowmode.js'),
 	execute: async ({ message, args, client, prefix }) => {
 		const channel = args[1]
 			? await message.guild.channels.fetch(

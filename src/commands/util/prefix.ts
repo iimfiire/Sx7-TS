@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../handler/command';
+import { join } from 'path';
 
 export default new Command({
 	name: 'prefix',
@@ -19,6 +20,7 @@ export default new Command({
 	noDisable: true,
 	userPerms: ['MANAGE_GUILD'],
 	botPerms: ['SEND_MESSAGES', 'EMBED_LINKS'],
+	fileLocation: join(__dirname, 'prefix.js'),
 	execute: ({ message, args, client, prefix }) => {
 		const addOptions = ['+', 'add', 'create', 'new'];
 		const removeOptions = ['-', 'remove', 'delete', 'del', 'rem'];

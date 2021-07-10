@@ -1,5 +1,6 @@
 import { TextChannel } from 'discord.js';
 import Command from '../../handler/command';
+import { join } from 'path';
 
 export default new Command({
 	name: 'unlock',
@@ -18,6 +19,7 @@ export default new Command({
 	noDisable: false,
 	userPerms: ['MANAGE_MESSAGES'],
 	botPerms: ['SEND_MESSAGES', 'MANAGE_CHANNELS', 'EMBED_LINKS'],
+	fileLocation:  join(__dirname, 'unlock.js'),
 	execute: async ({ message, args, client }) => {
 		const channel = args[0]
 			? await message.guild.channels.fetch(

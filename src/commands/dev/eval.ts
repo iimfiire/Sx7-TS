@@ -1,4 +1,5 @@
 import Command from '../../handler/command';
+import { join } from 'path';
 
 export default new Command({
 	name: 'eval',
@@ -16,6 +17,7 @@ export default new Command({
 	noDisable: true,
 	userPerms: ['SEND_MESSAGES'],
 	botPerms: ['ADMINISTRATOR'],
+	fileLocation: join(__dirname, 'eval.js'),
 	execute: ({ message, args, client }) => {
 		try {
 			eval(args.join(' '));

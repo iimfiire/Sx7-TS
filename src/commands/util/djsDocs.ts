@@ -1,6 +1,7 @@
 import Command from '../../handler/command';
 import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
+import { join } from 'path';
 
 export default new Command({
 	name: 'docs',
@@ -20,6 +21,7 @@ export default new Command({
 	nsfw: false,
 	syntax: `<query>`,
 	test: false,
+	fileLocation: join(__dirname, 'djsDocs.js'),
 	execute: ({ message, args, client }) => {
 		const uri = `https://djsdocs.sorta.moe/v2/embed?src=stable&q=${encodeURIComponent(
 			args.join(' ')

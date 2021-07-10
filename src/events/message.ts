@@ -2,6 +2,7 @@ import humanizeDuration from 'humanize-duration';
 import Event from '../handler/events';
 import { checkPerms, properCase } from '../handler/utils';
 import colors from 'colors';
+import { Util } from 'discord.js';
 
 export default new Event('messageCreate', (client, message) => {
 	if (!client.initialized) return;
@@ -32,7 +33,7 @@ export default new Event('messageCreate', (client, message) => {
 			message.content.includes('--dev') &&
 			client.developers.includes(message.author.id)
 		) {
-			return command.execute({ message, args, client, prefix: p });
+			return command.execute({ message, args, client, prefix: p, util: Util });
 		}
 
 		if (command.guildOnly && !message.guild)
@@ -152,6 +153,6 @@ export default new Event('messageCreate', (client, message) => {
 				new Date(Date.now() + command.cooldown)
 			);
 
-		return command.execute({ message, args, client, prefix: p });
+		return command.execute({ message, args, client, prefix: p, util: Util });
 	}
 });

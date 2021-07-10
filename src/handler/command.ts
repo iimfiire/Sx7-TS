@@ -1,11 +1,12 @@
 import fireClient from './fireClient';
-import { Message, PermissionResolvable } from 'discord.js';
+import { Message, PermissionResolvable, Util } from 'discord.js';
 
 interface execute {
 	message: Message;
 	args: string[];
 	client: fireClient;
 	prefix: string;
+	util: typeof Util
 }
 
 interface cmdOptions {
@@ -25,7 +26,8 @@ interface cmdOptions {
 	noDisable: boolean;
 	userPerms: PermissionResolvable[];
 	botPerms: PermissionResolvable[];
-	execute: ({ message, args, client, prefix }: execute) => any;
+	fileLocation: string;
+	execute: ({ message, args, client, prefix, util }: execute) => any;
 }
 
 export default class Command {
@@ -45,7 +47,8 @@ export default class Command {
 	noDisable: boolean;
 	userPerms: PermissionResolvable[];
 	botPerms: PermissionResolvable[];
-	execute: ({ message, args, client, prefix }: execute) => any | Promise<any>;
+	fileLocation: string
+	execute: ({ message, args, client, prefix, util, }: execute) => any | Promise<any>;
 
 	constructor({
 		name,
@@ -64,12 +67,13 @@ export default class Command {
 		noDisable,
 		userPerms,
 		botPerms,
+		fileLocation,
 		execute,
 	}: cmdOptions) {
 		if (!aliases) aliases = [];
 		if (!userPerms) userPerms = [];
 		if (!botPerms) botPerms = [];
-		if (!cooldown) cooldown = 0;
+		if (!cooldown) cooldown = 0
 
 		this.name = name;
 		this.aliases = aliases;
@@ -87,6 +91,7 @@ export default class Command {
 		this.noDisable = noDisable;
 		this.userPerms = userPerms;
 		this.botPerms = botPerms;
+		this.fileLocation = fileLocation;
 		this.execute = execute;
 	}
 }

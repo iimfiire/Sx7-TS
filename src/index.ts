@@ -54,5 +54,4 @@ if(process.argv[2] == '-safe') {
 		}
 	})
 }
-
 client.login(process.env.token);
