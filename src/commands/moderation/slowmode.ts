@@ -34,7 +34,7 @@ export default new Command({
 		const time = args[1] ? 
 			ms(args[1]) : 
 				args[0] ? 
-					!isNaN(parseInt(args[0])) ? 
+					!args[0].match(/^[A-Za-z]+$/) ? 
 						ms(args[0]) : 
 							parseInt(args[0]) * 1000 : 
 								0;
