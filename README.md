@@ -1,5 +1,5 @@
-<h1 style="text-align:center">
-    <a href="#" target="_blank">
-        <img src='./images/logo.png' alt='logo'>
-    </a>
+<h1 align="center">
+  <a href="https://discord.gg/jUNbV5u" target="_blank">
+    <img src="./images/cdcommands.png" alt="Logo">
+  </a>
 </h1>
