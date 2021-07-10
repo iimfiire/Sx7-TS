@@ -31,13 +31,13 @@ export default new Command({
 			  )
 			: message.channel;
 
-		const time = args[1]
-			? ms(args[1])
-			: args[0]
-			? isNaN(parseInt(args[0]))
-				? ms(args[0])
-				: parseInt(args[0]) * 1000
-			: 0;
+		const time = args[1] ? 
+			ms(args[1]) : 
+				args[0] ? 
+					isNaN(parseInt(args[0])) ? 
+						ms(args[0]) : 
+							parseInt(args[0]) * 1000 : 
+								0;
 
 		if (isNaN(time))
 			return message.reply({
