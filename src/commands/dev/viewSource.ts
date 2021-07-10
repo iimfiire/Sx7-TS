@@ -11,7 +11,7 @@ export default new Command({
 	cooldown: 0,
 	minArgs: 0,
 	maxArgs: Infinity,
-	syntax: '<"path goes here">',
+	syntax: '<"directory goes here">',
 	guildOnly: false,
 	devOnly: true,
 	test: true,
@@ -21,8 +21,14 @@ export default new Command({
 	botPerms: [],
 	fileLocation: join(__dirname, 'viewSource'),
 	execute: ({ message, args, client, util }) => {
-		const path = join(require.main.path, '../', ...args[0].split(' '));
-		const content = readFileSync(path, 'utf-8');
+		let content;
+		let path;
+		try {
+		path = join(require.main.path, '../', ...args[0].split(' '));
+		content = readFileSync(path, 'utf-8');
+		} catch {
+			return message.reply('path not found');
+		}
 		const split = util.splitMessage(content, { maxLength: 1900 });
 
 		split.forEach((block) => {

@@ -4,7 +4,7 @@ import { join } from 'path';
 export default new Command({
     name: 'ping',
     // aliases: [],
-    category: 'util',
+    category: 'utility',
     description: 'Generates a ping which represents the latency between the command being run and it being registered with the bot.',
     info: '',
     cooldown: 0,
