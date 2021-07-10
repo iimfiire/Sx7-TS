@@ -1,7 +1,6 @@
 import humanizeDuration from 'humanize-duration';
 import Event from '../handler/events';
 import { checkPerms, properCase } from '../handler/utils';
-import colors from 'colors';
 import { Util } from 'discord.js';
 
 export default new Event('messageCreate', (client, message) => {
