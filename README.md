@@ -1,9 +1,3 @@
-<style>
-    img {
-        text-align: center;
-    }
-</style>
-
-<h1>
+<h1 style='text-align:center;'>
     <img src='./images/logo.png' alt='logo'>
 </h1>
