@@ -19,7 +19,7 @@ export default new Command({
     userPerms: ['SEND_MESSAGES'],
     botPerms: ['SEND_MESSAGES'],
     fileLocation: join(__dirname, 'ping.js'),
-    execute: ({ message, args, client }) => {
+    execute: ({ message, client }) => {
         return message.reply({content: `🏓 in ${client.ws.ping}ms.`}).catch(err => {
             return;
         });
