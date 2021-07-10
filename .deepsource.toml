@@ -1,6 +1,6 @@
 version = 1
 
-exclude_patterns = ["apis"]
+exclude_patterns = ["/apis/*"]
 
 [[analyzers]]
 name = "javascript"
