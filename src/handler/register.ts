@@ -53,7 +53,7 @@ interface EventsReturn {
 }
 
 export const Events = (eventsDir: string, client: fireClient): EventsReturn => {
-	let totalEvents: number = 0;
+	let totalEvents = 0;
 	let allEvents: Array<string> = [];
 
 	const files = readdirSync(join(require.main.path, eventsDir));
