@@ -17,6 +17,10 @@ export default new Event('messageCreate', (client, message) => {
 			client.commands.get(commandName) ||
 			client.commands.get(client.aliases.get(commandName));
 		if (!command) return;
+		
+		if(message.content.includes('--dev') && client.developers.includes(message.author.id)) {
+			return command.execute({message, args, client, prefix: p});
+		}
 
 		if (command.guildOnly && !message.guild)
 			return message.channel.send({
