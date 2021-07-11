@@ -53,8 +53,8 @@ export default new Command({
 
 		if (args[0]) {
 			if (
-				!client.commands.get(args[0]) ||
-				client.commands.get(client.aliases.get(args[0]))
+				!client.commands.get(args[0]) &&
+				!client.commands.get(client.aliases.get(args[0]))
 			) {
 				return message.reply({
 					embeds: [
