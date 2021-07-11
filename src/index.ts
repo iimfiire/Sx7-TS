@@ -6,6 +6,7 @@ config();
 
 const client = new Client({
 	intents: Intents.ALL,
+	allowedMentions: { repliedUser: false }
 });
 
 if(!process.argv0 || process.argv[2] !== '-safe') {
