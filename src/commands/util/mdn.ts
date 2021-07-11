@@ -40,11 +40,13 @@ export default new Command({
 							.setDescription(data.summary)
 							.setURL(data.url),
 					],
+					allowedMentions: { repliedUser: false },
 				});
 			})
 			.catch(() => {
 				return message.reply({
 					embeds: [client.error({ message, data: `No documentation found.` })],
+					allowedMentions: { repliedUser: false },
 				});
 			});
 	},
