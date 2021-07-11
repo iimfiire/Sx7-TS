@@ -1,6 +1,5 @@
 import {
 	ColorResolvable,
-	Permissions,
 	PermissionString,
 	Role,
 } from 'discord.js';
@@ -323,7 +322,7 @@ export default new Command({
 		}
 
 		if (hoistedOptions.includes(args[1])) {
-			let truefalse =
+			const truefalse =
 				args[2] == 'true' ? 'true' : args[2] == 'false' ? 'false' : undefined;
 			const oldHoist = role.hoist;
 			if (!truefalse)
