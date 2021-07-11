@@ -32,7 +32,6 @@ export default new Command({
 		const split = util.splitMessage(content, { maxLength: 1900 });
 
 		split.forEach((block) => {
-			console.log(block.length);
 			message.reply({
 				content: `\`\`\`ts
                 ${block}

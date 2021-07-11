@@ -1,6 +1,7 @@
 import Command from '../../handler/command';
 import ms from 'ms';
 import { join } from 'path';
+import humanizeDuration from 'humanize-duration';
 
 export default new Command({
 	name: 'slowmode',
@@ -8,7 +9,7 @@ export default new Command({
 	category: 'moderation',
 	description: 'Sets the slowmode in a channel.',
 	info: '',
-	cooldown: 2500,
+	cooldown: 0,
 	minArgs: 0,
 	maxArgs: Infinity,
 	syntax: '[channel/time] [time]',
@@ -66,7 +67,7 @@ export default new Command({
 				embeds: [
 					client.success({
 						message,
-						data: `Set the slowmode in **${channel.name}** to **${ms(time)}**.`,
+						data: `Set the slowmode in **${channel.name}** to **${humanizeDuration(time, {largest: 2, delimiter: ' and '})}**.`,
 					}),
 				],
 				allowedMentions: { repliedUser: false },
