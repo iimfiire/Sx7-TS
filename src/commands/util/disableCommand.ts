@@ -23,6 +23,7 @@ export default new Command({
 	botPerms: ['SEND_MESSAGES', 'EMBED_LINKS'],
 	fileLocation: join(__dirname, 'disableCommand'),
 	execute: async ({ message, args, client }) => {
+		return message.reply(`disabled, no way to re-enable a command once disabled`)
 		const command =
 			client.commands.get(args[0]) ||
 			client.commands.get(client.aliases.get(args[0]));
@@ -81,7 +82,6 @@ export default new Command({
 		};
 
 		let str: string;
-
 
 		if (!args[1]) {
 			disableObj.global = true;
