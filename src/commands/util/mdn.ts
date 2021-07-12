@@ -1,6 +1,6 @@
 import { join } from 'path';
 import Command from '../../handler/command';
-import base from '../../../apis/MDN/Base.js';
+import Base from '../../../apis/MDN/Base.js';
 import { MessageEmbed } from 'discord.js';
 
 export default new Command({
@@ -15,14 +15,14 @@ export default new Command({
 	syntax: '<query>',
 	guildOnly: false,
 	devOnly: false,
-	test: true,
+	test: false,
 	nsfw: false,
 	noDisable: false,
 	userPerms: ['SEND_MESSAGES'],
 	botPerms: ['EMBED_LINKS', 'SEND_MESSAGES'],
 	fileLocation: join(__dirname, 'mdn'),
 	execute: async ({ message, args, client }) => {
-		const mdn = new base().mdn;
+		const mdn = new Base().mdn;
 
 		mdn
 			.fetch(args.join(' '), {

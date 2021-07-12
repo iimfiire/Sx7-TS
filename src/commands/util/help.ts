@@ -16,7 +16,7 @@ export default new Command({
 	syntax: '[command]',
 	guildOnly: true,
 	devOnly: false,
-	test: true,
+	test: false,
 	nsfw: false,
 	noDisable: false,
 	userPerms: ['SEND_MESSAGES'],
@@ -34,7 +34,11 @@ export default new Command({
 			const categories: string[] = [];
 
 			client.commands.forEach((cmd) => {
+				if(!client.developers.includes(message.author.id)) {
+					if(!categories.includes(cmd.category) && cmd.category !== 'dev') categories.push(cmd.category)
+				} else {
 				if (!categories.includes(cmd.category)) categories.push(cmd.category);
+				}
 			});
 
 			categories.forEach((category) => {
@@ -43,7 +47,7 @@ export default new Command({
 				);
 
 				helpEmbed.addField(
-					category,
+					properCase(category),
 					categoryCommands.map((cmd) => cmd.name).join(', ')
 				);
 			});
@@ -53,8 +57,8 @@ export default new Command({
 
 		if (args[0]) {
 			if (
-				!client.commands.get(args[0]) &&
-				!client.commands.get(client.aliases.get(args[0]))
+				!client.commands.get(args[0].toLowerCase()) &&
+				!client.commands.get(client.aliases.get(args[0].toLowerCase()))
 			) {
 				return message.reply({
 					embeds: [
@@ -66,8 +70,8 @@ export default new Command({
 				});
 			} else {
 				const command =
-					client.commands.get(args[0]) ||
-					client.commands.get(client.aliases.get(args[0]));
+					client.commands.get(args[0].toLowerCase()) ||
+					client.commands.get(client.aliases.get(args[0]).toLowerCase());
 				helpEmbed.setTitle(`${properCase(command.name)} Help Menu`);
 				helpEmbed.setDescription(`${command.description}`);
 				helpEmbed.addFields([

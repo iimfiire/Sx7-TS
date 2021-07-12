@@ -31,7 +31,12 @@ interface models2 {
 	};
 	disabledCommands: {
 		gID: string;
-		disabled: string[];
+		disabled: {
+			command: string,
+			global: boolean,
+			channels: string[],
+			roles: string[],
+		}[];
 	};
 	allowedRoles: {
 		gID: string;
@@ -85,7 +90,7 @@ export default class Cache {
 		else return this._cache.get(type).get(findBy);
 	}
 
-	insertDoc<T extends keyof models2>(type: T, doc: Document<models2[T]>) {
+	insertDoc<T extends keyof models2>(type: T, doc: Document<any, any>) {
 		if (!this._cache.get(type))
 			this._cache.set(
 				type,

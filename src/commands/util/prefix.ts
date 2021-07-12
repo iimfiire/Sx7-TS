@@ -15,7 +15,7 @@ export default new Command({
 	syntax: '[+/-] [prefix]',
 	guildOnly: true,
 	devOnly: false,
-	test: true,
+	test: false,
 	nsfw: false,
 	noDisable: true,
 	userPerms: ['MANAGE_GUILD'],

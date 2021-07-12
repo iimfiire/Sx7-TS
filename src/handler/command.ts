@@ -1,12 +1,12 @@
 import fireClient from './fireClient';
-import { Message, PermissionResolvable, Util } from 'discord.js';
+import { Message, PermissionResolvable } from 'discord.js';
 
 interface execute {
 	message: Message;
 	args: string[];
 	client: fireClient;
 	prefix: string;
-	util: typeof Util
+	util: any
 }
 
 interface cmdOptions {

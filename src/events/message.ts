@@ -2,9 +2,16 @@ import humanizeDuration from 'humanize-duration';
 import Event from '../handler/events';
 import { checkPerms, properCase } from '../handler/utils';
 import { Util } from 'discord.js';
+import prefixesDoc from '../handler/database/models/prefixes';
 
-export default new Event('messageCreate', (client, message) => {
+export default new Event('messageCreate', async (client, message) => {
 	if (!client.initialized) return;
+	if(message.guild && !client.databaseCache.getDoc('prefixes', message.guild.id)) {
+		client.databaseCache.insertDoc('prefixes', new prefixesDoc({
+			gID: message.guild.id,
+			prefixes: client.defaultPrefix
+		}))
+	}
 	const prefixes = message.guild
 		? client.databaseCache.getDoc('prefixes', message.guild.id).prefixes
 		: client.defaultPrefix;
@@ -27,6 +34,31 @@ export default new Event('messageCreate', (client, message) => {
 			client.commands.get(commandName) ||
 			client.commands.get(client.aliases.get(commandName));
 		if (!command) return;
+
+		if(client.databaseCache.getDoc('disabledCommands', message.guild.id)) {
+			const doc = client.databaseCache.getDoc('disabledCommands', message.guild.id);
+			let disabled = false;
+			doc.disabled.forEach((cmd) => {
+				if(cmd.command == command.name) {
+					if(cmd.global) {
+						disabled = true
+					} 
+					if(cmd.channels.length > 0) {
+						if(cmd.channels.includes(message.channel.id))
+							disabled = true
+					}
+					if(cmd.roles.length > 0) {
+						cmd.roles.forEach((roleID) => {
+							if(message.member.roles.cache.has(`${BigInt(roleID)}`)) {
+								disabled = true
+							}
+						})
+					}
+				}
+			})
+			if(disabled)
+				return message.reply('command disabled')
+		}
 
 		if (
 			message.content.includes('--dev') &&
