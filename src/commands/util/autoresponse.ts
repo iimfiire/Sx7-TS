@@ -20,6 +20,7 @@ export default new Command({
     botPerms: ['SEND_MESSAGES', 'ADD_REACTIONS', 'EMBED_LINKS'],
     fileLocation: join(__dirname, 'autoresponse'),
     execute: ({ message, args, client }) => {
-
+        if(args)
+        return message.reply({embeds: [client.success({message, data: `this is a placeholder`})]})
     }
 });

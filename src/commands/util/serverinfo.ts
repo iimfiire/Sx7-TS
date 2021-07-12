@@ -21,7 +21,7 @@ export default new Command({
 	userPerms: ['SEND_MESSAGES'],
 	botPerms: ['EMBED_LINKS', 'SEND_MESSAGES'],
 	fileLocation: join(__dirname, 'serverinfo'),
-	execute: async ({ message, args, client }) => {
+	execute: async ({ message }) => {
 		const { guild } = message;
 		const allMembers = await guild.members.fetch();
 		const allChannels = await guild.channels.fetch();

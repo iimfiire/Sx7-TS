@@ -4,7 +4,7 @@ import { checkPerms, properCase } from '../handler/utils';
 import { Util } from 'discord.js';
 import prefixesDoc from '../handler/database/models/prefixes';
 
-export default new Event('messageCreate', async (client, message) => {
+export default new Event('messageCreate', (client, message) => {
 	if (!client.initialized) return;
 	if(message.guild && !client.databaseCache.getDoc('prefixes', message.guild.id)) {
 		client.databaseCache.insertDoc('prefixes', new prefixesDoc({

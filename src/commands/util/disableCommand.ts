@@ -81,18 +81,16 @@ export default new Command({
 		};
 
 		let str: string;
-		let type: 'global' | 'role' | 'channel';
+
 
 		if (!args[1]) {
 			disableObj.global = true;
-			type = 'global';
 			str = `Successfully disabled ${properCase(command.name)} globally.`;
 		}
 
 		if (args[1]) {
 			if (args[1].match(/^[A-Za-z]+$/)) {
 				disableObj.global = true;
-				type = 'global';
 				str = `Successfully disabled ${properCase(command.name)} globally.`;
 			} else {
 				if (
@@ -147,7 +145,6 @@ export default new Command({
 								}),
 							],
 						});
-					type = 'channel';
 					str = `Successfully disabled ${command.name} in ${channel}.`;
 					disableObj.channels = [...disableObj.channels, channel.id];
 				} else if (message.mentions.roles.first()) {
@@ -169,7 +166,6 @@ export default new Command({
 								}),
 							],
 						});
-					type = 'role';
 					str = `Successfully disabled ${command.name} for ${role}.`;
 					disableObj.roles = [...disableObj.roles, role.id];
 				} else {
@@ -206,7 +202,6 @@ export default new Command({
 										}),
 									],
 								});
-							type = 'role';
 							str = `Successfully disabled ${command.name} for ${role}`;
 							disableObj.roles = [...disableObj.roles, role.id];
 						}
@@ -239,7 +234,6 @@ export default new Command({
 								],
 							});
 						}
-						type = 'role';
 						str = `Successfully disabled ${command.name} in ${channel}`;
 						disableObj.channels = [...disableObj.channels, channel.id];
 					}

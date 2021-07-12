@@ -21,7 +21,7 @@ export default new Command({
 	userPerms: ['SEND_MESSAGES'],
 	botPerms: ['EMBED_LINKS', 'SEND_MESSAGES'],
 	fileLocation: join(__dirname, 'userinfo'),
-	execute: async ({ message, args, client }) => {
+	execute: async ({ message, args }) => {
 		const info = args[0] ?
 		    await message.guild.members
 					.fetch(
