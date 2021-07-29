@@ -36,6 +36,8 @@ interface models2 {
 			global: boolean,
 			channels: string[],
 			roles: string[],
+			enabledChannels: string[],
+			enabledRoles: string[]
 		}[];
 	};
 	allowedRoles: {

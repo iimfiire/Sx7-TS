@@ -4,13 +4,19 @@ import { checkPerms, properCase } from '../handler/utils';
 import { Util } from 'discord.js';
 import prefixesDoc from '../handler/database/models/prefixes';
 
-export default new Event('messageCreate', (client, message) => {
+export default new Event('messageCreate', async (client, message) => {
 	if (!client.initialized) return;
-	if(message.guild && !client.databaseCache.getDoc('prefixes', message.guild.id)) {
-		client.databaseCache.insertDoc('prefixes', new prefixesDoc({
-			gID: message.guild.id,
-			prefixes: client.defaultPrefix
-		}))
+	if (
+		message.guild &&
+		!client.databaseCache.getDoc('prefixes', message.guild.id)
+	) {
+		client.databaseCache.insertDoc(
+			'prefixes',
+			new prefixesDoc({
+				gID: message.guild.id,
+				prefixes: client.defaultPrefix,
+			})
+		);
 	}
 	const prefixes = message.guild
 		? client.databaseCache.getDoc('prefixes', message.guild.id).prefixes
@@ -35,29 +41,47 @@ export default new Event('messageCreate', (client, message) => {
 			client.commands.get(client.aliases.get(commandName));
 		if (!command) return;
 
-		if(client.databaseCache.getDoc('disabledCommands', message.guild.id)) {
-			const doc = client.databaseCache.getDoc('disabledCommands', message.guild.id);
+		if (client.databaseCache.getDoc('disabledCommands', message.guild.id)) {
+			const doc = client.databaseCache.getDoc(
+				'disabledCommands',
+				message.guild.id
+			);
 			let disabled = false;
-			doc.disabled.forEach((cmd) => {
-				if(cmd.command == command.name) {
-					if(cmd.global) {
-						disabled = true
-					} 
-					if(cmd.channels.length > 0) {
-						if(cmd.channels.includes(message.channel.id))
-							disabled = true
-					}
-					if(cmd.roles.length > 0) {
-						cmd.roles.forEach((roleID) => {
-							if(message.member.roles.cache.has(`${BigInt(roleID)}`)) {
-								disabled = true
-							}
-						})
-					}
+			let allowed = false;
+			await doc.disabled.forEach((cmd) => {
+				if (cmd.command == command.name) {
+						if (cmd.global) {
+							disabled = true;
+						}
+						if (cmd.channels.length > 0) {
+							if (
+								cmd.channels.includes(message.channel.id) &&
+								!cmd.enabledChannels.includes(message.channel.id)
+							)
+								disabled = true;
+						}
+						if (cmd.roles.length > 0) {
+							cmd.roles.forEach((roleID) => {
+								if (cmd.enabledRoles) {
+									if (cmd.enabledRoles.includes(roleID)) return;
+								}
+								if (message.member.roles.cache.has(`${BigInt(roleID)}`)) {
+									disabled = true;
+								}
+							});
+						}
+						if(cmd.enabledChannels.includes(message.channel.id)) allowed = true;
+						if(cmd.enabledRoles.length > 0) {
+							let roles = message.member.roles.cache.map(role => role.id)
+							roles.forEach(role => {
+								if(cmd.enabledRoles.includes(role)) {
+									allowed = true;
+								}
+							})
+						}
 				}
-			})
-			if(disabled)
-				return message.reply('command disabled')
+			});
+			if (disabled && !allowed) return;
 		}
 
 		if (

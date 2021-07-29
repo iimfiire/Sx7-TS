@@ -23,6 +23,7 @@ if(!process.argv0 || process.argv[2] !== '-safe') {
 		});
 		console.log(`[INIT]`.green + ` Logged in as ${client.user.username}`);
 		if (!client.application?.owner) client.application.fetch();
+		client.user.setStatus('idle');
 	});
 
 	process.on('warning', (warning) => {

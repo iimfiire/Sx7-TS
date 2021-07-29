@@ -13,6 +13,7 @@ export default new Feature((client) => {
 		if(channel && channel.isText()) {
 			const interval = setInterval(() => {
 				if(client.initialized) {
+					client.user.setStatus('online')
 					 channel.send({embeds: [onlineEmbed]})
 					 clearInterval(interval)
 				}
