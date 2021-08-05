@@ -27,7 +27,7 @@ export const checkRoles = (
 	member: GuildMember,
 	reqRoles: Array<Role>
 ): boolean => {
-	const memberRoles = member.roles.cache.array();
+	const memberRoles = member.roles.cache.map(role => role);
 
 	for (const role of reqRoles) {
 		if (!memberRoles.includes(role)) return false;

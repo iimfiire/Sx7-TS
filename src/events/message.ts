@@ -111,7 +111,7 @@ export default new Event('messageCreate', async (client, message) => {
 				],
 			});
 
-		if (command.nsfw && message.channel.type == 'text' && !message.channel.nsfw)
+		if (command.nsfw && message.channel.type == 'GUILD_TEXT' && !message.channel.nsfw)
 			return message.channel.send({
 				embeds: [
 					client.error({

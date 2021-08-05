@@ -1,6 +1,7 @@
 import { join } from 'path';
 import Command from './command';
 import Event from './events';
+import SlashCommand from './slashcommand';
 import fireClient from './fireClient';
 import { readdirSync, lstatSync } from 'fs';
 import colors from 'colors';
@@ -47,6 +48,36 @@ export const Commands = (commandsDir: string, client: fireClient) => {
 	return client;
 };
 
+export const SlashCommands = (slashCommandDir: string, client: fireClient) => {
+	const folders = readdirSync(join(require.main.path, slashCommandDir));
+	for (const folder of folders) {
+		if (
+			lstatSync(join(require.main.path, slashCommandDir, folder)).isDirectory()
+		)
+			SlashCommands(join(require.main.path, slashCommandDir, folder), client);
+		else {
+			if (join(require.main.path, slashCommandDir, folder).endsWith('.map'))
+				continue;
+			const slashCommand = require(join(
+				require.main.path,
+				slashCommandDir,
+				folder
+			)).default;
+			if (!(slashCommand instanceof SlashCommand)) {
+				console.log(
+					`[ERROR] `.red +
+						`Command registered at ${join(
+							require.main.path,
+							slashCommandDir,
+							folder
+						)} is invalid`.white
+				);
+				continue;
+			}
+		}
+	}
+};
+
 interface EventsReturn {
 	totalEvents: number;
 	allEvents: Array<string>;
@@ -70,10 +101,17 @@ export const Events = (eventsDir: string, client: fireClient): EventsReturn => {
 				eventsDir,
 				file
 			)).default;
-			if(!(event instanceof Event)) {
-			  console.log(`[ERROR]`.red + ` Event file at ${join(require.main.path, eventsDir, file)} is invalid.`.white);
-			  continue
-			};
+			if (!(event instanceof Event)) {
+				console.log(
+					`[ERROR]`.red +
+						` Event file at ${join(
+							require.main.path,
+							eventsDir,
+							file
+						)} is invalid.`.white
+				);
+				continue;
+			}
 			allEvents.push(event.name);
 			totalEvents += 1;
 			client.on(event.name, event.execute.bind(null, client));

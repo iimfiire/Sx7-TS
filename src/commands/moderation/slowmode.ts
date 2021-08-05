@@ -51,7 +51,7 @@ export default new Command({
 				allowedMentions: { repliedUser: false },
 			});
 
-		if (channel.type == 'text') {
+		if (channel.type == 'GUILD_TEXT') {
 			channel.setRateLimitPerUser(time / 1000);
 			if (time == 0)
 				return message.reply({

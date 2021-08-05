@@ -32,14 +32,14 @@ export default new Command({
 			: message.channel;
 
 		const isLocked = (channel: TextChannel) => {
-			if (channel.type == 'text') {
+			if (channel.type == 'GUILD_TEXT') {
 				const perms = channel.permissionsFor(message.guild.roles.everyone);
 				return !perms.has('SEND_MESSAGES');
 			}
 			return false;
 		};
 
-		if (channel.isText() && channel.type == 'text') {
+		if (channel.isText() && channel.type == 'GUILD_TEXT') {
 			if (isLocked(channel)) {
 				await channel.permissionOverwrites.edit(
 					message.guild.roles.everyone.id,

@@ -5,7 +5,7 @@ import colors from 'colors';
 config();
 
 const client = new Client({
-	intents: Intents.ALL,
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES],
 	allowedMentions: { repliedUser: false }
 });
 
@@ -22,7 +22,7 @@ if(!process.argv0 || process.argv[2] !== '-safe') {
 			testServers: ['799284445785751614', '789840820563476482'],
 		});
 		console.log(`[INIT]`.green + ` Logged in as ${client.user.username}`);
-		if (!client.application?.owner) client.application.fetch();
+		// if (!client.application?.owner) client.application.fetch();
 		client.user.setStatus('idle');
 	});
 

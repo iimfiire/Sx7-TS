@@ -30,7 +30,7 @@ export default new Command({
 			  )
 			: message.channel;
 
-		if (!channel.isText() || channel.type !== 'text')
+		if (!channel.isText() || channel.type !== 'GUILD_TEXT')
 			return message.reply({
 				embeds: [
 					client.error({
@@ -52,7 +52,7 @@ export default new Command({
 				allowedMentions: { repliedUser: false },
 			});
 		} else {
-			if (channel.type == 'text' && channel.isText()) {
+			if (channel.type == 'GUILD_TEXT' && channel.isText()) {
 				await channel.permissionOverwrites.edit(
 					message.guild.roles.everyone.id,
 					{ SEND_MESSAGES: false }

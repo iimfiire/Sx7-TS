@@ -42,18 +42,18 @@ export default new Command({
 					name: `Channels`,
 					value: `Total (text/voice): ${
 						allChannels.filter(
-							(channel) => channel.type == 'voice' || channel.type == 'text'
+							(channel) => channel.type == 'GUILD_VOICE' || channel.type == 'GUILD_TEXT'
 						).size
 					} \nText Channels: ${
 						allChannels.filter((channel) => channel.isText()).size
 					} \nVoice Channels: ${
-						allChannels.filter((channel) => channel.type == 'voice').size
+						allChannels.filter((channel) => channel.type == 'GUILD_VOICE').size
 					}`,
 					inline: true,
 				},
 				{
 					name: `Misc`,
-					value: `Owner: <@${guild.ownerID}> \nServer ID: ${
+					value: `Owner: <@${guild.ownerId}> \nServer ID: ${
 						guild.id
 					} \nTotal emotes: ${emotes.size} \nCreated: ${humanizeDuration(
 						Date.now().valueOf() - guild.createdAt.valueOf(),
